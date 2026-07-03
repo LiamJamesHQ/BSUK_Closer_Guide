@@ -21,14 +21,14 @@
     background:var(--sage);
     color:var(--ink);
     font-family:Verdana,Geneva,sans-serif;
-    line-height:1.6;
+    line-height:1.7;
     -webkit-font-smoothing:antialiased;
-    padding:0 0 80px;
+    padding:0 0 100px;
   }
   header{
     background:var(--green);
     color:var(--sage);
-    padding:38px 22px 30px;
+    padding:52px 24px 44px;
     text-align:center;
     position:sticky;
     top:0;
@@ -38,26 +38,26 @@
   header h1{
     font-family:"Playfair Display",Georgia,serif;
     font-weight:600;
-    font-size:26px;
+    font-size:32px;
     letter-spacing:0.3px;
-    margin-bottom:4px;
+    margin-bottom:8px;
   }
   header p{
-    font-size:12px;
+    font-size:12.5px;
     opacity:0.82;
-    letter-spacing:0.5px;
+    letter-spacing:1.5px;
     text-transform:uppercase;
   }
   .wrap{
-    max-width:640px;
+    max-width:860px;
     margin:0 auto;
-    padding:22px 16px 0;
+    padding:34px 24px 0;
   }
   .card{
     background:#fff;
-    border-radius:14px;
-    padding:24px 22px 26px;
-    margin-bottom:20px;
+    border-radius:16px;
+    padding:40px 44px 42px;
+    margin-bottom:28px;
     box-shadow:0 1px 3px rgba(0,0,0,0.06);
     border:1px solid var(--line);
   }
@@ -65,85 +65,97 @@
     display:inline-block;
     font-family:"Playfair Display",Georgia,serif;
     font-style:italic;
-    font-size:15px;
+    font-size:16px;
     color:var(--terracotta);
-    margin-bottom:6px;
+    margin-bottom:10px;
   }
   .card h2{
     font-family:"Playfair Display",Georgia,serif;
     font-weight:600;
-    font-size:22px;
+    font-size:27px;
     color:var(--green);
-    margin-bottom:16px;
-    line-height:1.25;
+    margin-bottom:26px;
+    line-height:1.3;
   }
   .label{
     font-size:11px;
     font-weight:bold;
-    letter-spacing:1.2px;
+    letter-spacing:1.4px;
     text-transform:uppercase;
     color:var(--terracotta);
     display:block;
-    margin:0 0 8px;
+    margin:0 0 12px;
   }
   .say{
-    font-size:15.5px;
+    font-size:16px;
     color:var(--ink);
-    margin-bottom:18px;
+    margin-bottom:26px;
   }
-  .say p{margin-bottom:12px;}
+  .say p{margin-bottom:16px;}
   .say p:last-child{margin-bottom:0;}
   .move{
     background:var(--sage);
     border-left:3px solid var(--green);
-    padding:11px 14px;
-    border-radius:0 8px 8px 0;
-    font-size:13.5px;
+    padding:16px 20px;
+    border-radius:0 10px 10px 0;
+    font-size:14.5px;
     color:var(--muted);
+    line-height:1.65;
   }
   .move strong{color:var(--green);font-weight:bold;}
   .gap{
-    margin-top:14px;
+    margin-top:18px;
     background:#fbf3ee;
     border:1px dashed var(--terracotta);
-    padding:10px 13px;
-    border-radius:8px;
-    font-size:12.5px;
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:13.5px;
     color:var(--terracotta);
+    line-height:1.6;
   }
   .gap strong{font-weight:bold;}
   .toc{
     background:#fff;
-    border-radius:14px;
-    padding:20px 22px;
-    margin-bottom:24px;
+    border-radius:16px;
+    padding:32px 40px;
+    margin-bottom:34px;
     border:1px solid var(--line);
   }
   .toc h3{
     font-family:"Playfair Display",Georgia,serif;
-    font-size:15px;
+    font-size:19px;
     color:var(--green);
-    margin-bottom:12px;
+    margin-bottom:18px;
     font-weight:600;
   }
   .toc ol{list-style:none;counter-reset:t;}
-  .toc li{counter-increment:t;font-size:13.5px;padding:4px 0;border-bottom:1px solid var(--line);}
+  .toc li{counter-increment:t;font-size:15px;padding:11px 0;border-bottom:1px solid var(--line);}
   .toc li:last-child{border-bottom:none;}
   .toc a{color:var(--ink);text-decoration:none;display:block;}
   .toc a::before{content:counter(t) ".  ";color:var(--terracotta);font-weight:bold;}
-  .toc a:active{color:var(--terracotta);}
+  .toc a:hover{color:var(--terracotta);}
   footer{
     text-align:center;
-    font-size:12px;
+    font-size:12.5px;
     color:var(--muted);
-    padding:30px 20px 0;
+    padding:44px 24px 0;
   }
   footer .rule{
     font-family:"Playfair Display",Georgia,serif;
     font-style:italic;
     color:var(--green);
-    font-size:14px;
-    margin-bottom:6px;
+    font-size:16px;
+    margin-bottom:8px;
+  }
+
+  @media (max-width:600px){
+    header{padding:38px 20px 30px;}
+    header h1{font-size:26px;}
+    .wrap{padding:24px 16px 0;}
+    .card{padding:28px 24px 30px;border-radius:14px;}
+    .card h2{font-size:23px;margin-bottom:20px;}
+    .toc{padding:24px 24px;}
+    .say{font-size:15.5px;}
   }
 </style>
 </head>
