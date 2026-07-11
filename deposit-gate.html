@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BSUK — The Deposit Gate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2B5336;
+    --green-deep:#22422b;
+    --sage:#f1f2ec;
+    --terracotta:#C08B41;
+    --winered:#8A1A2C;
+    --winered-bg:rgba(138,26,44,0.05);
+    --send:#3B6E8F;
+    --send-bg:#eef4f7;
+    --ink:#33352f;
+    --muted:#6a6f64;
+    --line:#dcdfd4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--sage);
+    color:var(--ink);
+    font-family:"Raleway",Helvetica,Arial,sans-serif;
+    font-weight:400;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 100px;
+  }
+  header{
+    background:var(--green);
+    color:var(--sage);
+    padding:56px 24px 48px;
+    text-align:center;
+    position:relative;
+    box-shadow:0 2px 12px rgba(0,0,0,0.12);
+  }
+  header h1{
+    font-weight:800;
+    font-size:34px;
+    letter-spacing:0.5px;
+    margin-bottom:10px;
+  }
+  header p{
+    font-size:12.5px;
+    font-weight:500;
+    opacity:0.82;
+    letter-spacing:2px;
+    text-transform:uppercase;
+  }
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:40px 24px 0;
+  }
+  .card{
+    background:#fff;
+    border-radius:16px;
+    padding:48px 52px 50px;
+    margin-bottom:32px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+    border:1px solid var(--line);
+  }
+  .num{
+    display:inline-block;
+    font-style:italic;
+    font-weight:500;
+    font-size:15px;
+    letter-spacing:0.5px;
+    color:var(--terracotta);
+    margin-bottom:12px;
+  }
+  .card h2{
+    font-weight:700;
+    font-size:28px;
+    color:var(--green);
+    margin-bottom:32px;
+    line-height:1.35;
+    letter-spacing:0.2px;
+  }
+  .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    display:block;
+    margin:0 0 14px;
+  }
+  .say{
+    font-size:16.5px;
+    font-weight:400;
+    color:var(--ink);
+    margin-bottom:32px;
+  }
+  .say p{margin-bottom:20px;}
+  .say p:last-child{margin-bottom:0;}
+  .move{
+    background:var(--sage);
+    border-left:3px solid var(--green);
+    padding:20px 24px;
+    border-radius:0 10px 10px 0;
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.75;
+  }
+  .move strong{color:var(--green);font-weight:700;}
+
+  .story{
+    margin:6px 0 26px;
+    background:var(--winered-bg);
+    border-left:3px solid var(--winered);
+    border-radius:0 12px 12px 0;
+    padding:22px 26px 24px;
+  }
+  .story .story-tag{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--winered);
+    display:block;
+    margin-bottom:10px;
+  }
+  .story p{
+    font-size:16px;
+    font-weight:500;
+    font-style:italic;
+    line-height:1.7;
+    color:var(--winered);
+    margin-bottom:14px;
+  }
+  .story p:last-child{margin-bottom:0;}
+
+  /* the spoken script block */
+  .script{
+    margin:6px 0 26px;
+    background:var(--sage);
+    border:1px solid var(--line);
+    border-left:4px solid var(--terracotta);
+    border-radius:0 12px 12px 0;
+    padding:26px 30px 28px;
+  }
+  .script .script-tag{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    display:block;
+    margin-bottom:14px;
+  }
+  .script p{
+    font-size:16.5px;
+    font-weight:500;
+    line-height:1.8;
+    color:var(--ink);
+    margin-bottom:18px;
+  }
+  .script p:last-child{margin-bottom:0;}
+  .script strong{color:var(--green);font-weight:700;}
+
+  /* whatsapp bubble */
+  .wa{
+    margin:6px 0 22px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px 14px 14px 14px;
+    padding:22px 26px 24px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.05);
+  }
+  .wa .wa-tag{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:14px;
+  }
+  .wa p{
+    font-size:16px;
+    font-weight:400;
+    line-height:1.75;
+    color:var(--ink);
+    margin-bottom:16px;
+  }
+  .wa p:last-child{margin-bottom:0;}
+  .wa strong{color:var(--green);font-weight:700;}
+
+  /* the beats */
+  .beat{
+    border-left:3px solid var(--line);
+    padding:0 0 0 26px;
+    margin-bottom:30px;
+    position:relative;
+  }
+  .beat:last-child{margin-bottom:0;}
+  .beat.final{border-left-color:var(--terracotta);}
+  .beat-num{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    display:block;
+    margin-bottom:8px;
+  }
+  .beat h3{
+    font-size:19px;
+    font-weight:700;
+    color:var(--green);
+    margin-bottom:14px;
+    line-height:1.4;
+  }
+  .beat p{
+    font-size:16px;
+    line-height:1.8;
+    margin-bottom:14px;
+    color:var(--ink);
+  }
+  .beat p:last-child{margin-bottom:0;}
+  .beat strong{color:var(--green);font-weight:700;}
+
+  /* the rule / guardrail */
+  .rulebox{
+    background:var(--green);
+    color:var(--sage);
+    border-radius:14px;
+    padding:30px 34px;
+    margin:6px 0 30px;
+    text-align:center;
+  }
+  .rulebox .rulebox-tag{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    opacity:0.7;
+    display:block;
+    margin-bottom:12px;
+  }
+  .rulebox p{
+    font-size:21px;
+    font-weight:700;
+    line-height:1.5;
+    color:#fff;
+  }
+
+  /* sequence steps */
+  .seq{list-style:none;counter-reset:s;margin:0 0 26px;}
+  .seq li{
+    counter-increment:s;
+    font-size:16px;
+    padding:13px 0 13px 0;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    line-height:1.7;
+  }
+  .seq li:last-child{border-bottom:none;}
+  .seq li::before{
+    content:counter(s);
+    flex:0 0 26px;
+    height:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--sage);
+    border-radius:50%;
+    font-size:12px;
+    font-weight:700;
+    color:var(--green);
+    margin-top:3px;
+  }
+  .seq li.gate::before{background:var(--terracotta);color:#fff;}
+  .seq li.gate{font-weight:600;color:var(--green);}
+
+  /* pushback table */
+  .ptable{
+    width:100%;
+    border-collapse:collapse;
+    margin:6px 0 30px;
+    font-size:15.5px;
+  }
+  .ptable th{
+    text-align:left;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    padding:0 16px 12px 0;
+    border-bottom:2px solid var(--line);
+  }
+  .ptable td{
+    padding:16px 16px 16px 0;
+    border-bottom:1px solid var(--line);
+    color:var(--ink);
+    font-weight:400;
+    line-height:1.7;
+    vertical-align:top;
+  }
+  .ptable td:first-child{
+    font-style:italic;
+    color:var(--muted);
+    width:32%;
+  }
+  .ptable tr:last-child td{border-bottom:none;}
+
+  .confirm{
+    margin:6px 0 26px;
+    background:rgba(192,139,65,0.08);
+    border-left:3px solid var(--terracotta);
+    border-radius:0 10px 10px 0;
+    padding:18px 24px;
+    font-size:14.5px;
+    color:#7a5a2e;
+    line-height:1.7;
+  }
+  .confirm .confirm-tag{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    display:block;
+    margin-bottom:8px;
+  }
+  .confirm strong{color:var(--terracotta);font-weight:700;}
+
+  .xref{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--send);
+    background:var(--send-bg);
+    padding:2px 10px;
+    border-radius:999px;
+    letter-spacing:0.5px;
+    text-decoration:none;
+  }
+  .xref:hover{background:var(--send);color:#fff;}
+
+  .toc{
+    background:#fff;
+    border-radius:16px;
+    padding:44px 48px 40px;
+    margin-bottom:36px;
+    border:1px solid var(--line);
+  }
+  .toc h3{
+    font-size:26px;
+    font-weight:800;
+    color:var(--green);
+    margin-bottom:6px;
+    letter-spacing:0.2px;
+    line-height:1.2;
+  }
+  .toc .toc-sub{
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    margin-bottom:26px;
+  }
+  .toc ol{list-style:none;counter-reset:t;}
+  .toc li{
+    counter-increment:t;
+    font-size:15.5px;
+    font-weight:500;
+    border-bottom:1px solid var(--line);
+  }
+  .toc li:last-child{border-bottom:none;}
+  .toc a{
+    color:var(--ink);
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:12px 2px;
+    transition:color 0.15s ease,padding 0.15s ease;
+  }
+  .toc a::before{
+    content:counter(t);
+    flex:0 0 28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--sage);
+    border-radius:50%;
+    font-size:13px;
+    font-weight:700;
+    color:var(--green);
+    transition:background 0.15s ease,color 0.15s ease;
+  }
+  .toc a:hover{color:var(--terracotta);padding-left:8px;}
+  .toc a:hover::before{background:var(--green);color:#fff;}
+
+  .ground-rules{
+    background:#fff;
+    border-radius:16px;
+    padding:38px 48px;
+    margin-bottom:36px;
+    border:1px solid var(--line);
+    border-top:4px solid var(--green);
+  }
+  .ground-rules h3{
+    font-size:20px;
+    color:var(--green);
+    margin-bottom:20px;
+    font-weight:700;
+  }
+  .ground-rules ol{list-style:none;counter-reset:g;}
+  .ground-rules li{counter-increment:g;font-size:15.5px;padding:12px 0;border-bottom:1px solid var(--line);line-height:1.75;}
+  .ground-rules li:last-child{border-bottom:none;}
+  .ground-rules li::before{content:counter(g)".  ";color:var(--green);font-weight:700;}
+  .ground-rules strong{color:var(--green);}
+
+  .oneliner{
+    background:var(--green);
+    color:#fff;
+    border-radius:16px;
+    padding:52px 48px;
+    margin-bottom:32px;
+    text-align:center;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+  }
+  .oneliner .oneliner-tag{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    display:block;
+    margin-bottom:20px;
+  }
+  .oneliner p{
+    font-size:25px;
+    font-weight:700;
+    line-height:1.55;
+    color:#fff;
+    font-style:italic;
+    max-width:640px;
+    margin:0 auto;
+  }
+
+  footer{
+    text-align:center;
+    font-size:12.5px;
+    color:var(--muted);
+    padding:48px 24px 0;
+  }
+  footer .rule{
+    font-style:italic;
+    font-weight:500;
+    color:var(--green);
+    font-size:16px;
+    margin-bottom:8px;
+  }
+
+  .nav-btns{
+    position:fixed;right:20px;bottom:24px;
+    display:flex;flex-direction:column;gap:10px;z-index:50;
+    opacity:0;pointer-events:none;transition:opacity 0.25s ease;
+  }
+  .nav-btns.show{opacity:1;pointer-events:auto;}
+  .nav-btns button{
+    width:46px;height:46px;border-radius:50%;border:none;
+    background:var(--green);color:var(--sage);font-size:20px;line-height:1;cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,0.25);
+    display:flex;align-items:center;justify-content:center;
+    transition:background 0.2s ease,transform 0.15s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .nav-btns button:hover{background:#39694a;}
+  .nav-btns button:active{transform:scale(0.92);}
+
+  @media (max-width:600px){
+    header{padding:40px 20px 32px;}
+    header h1{font-size:27px;}
+    .wrap{padding:26px 16px 0;}
+    .card{padding:32px 26px 34px;border-radius:14px;}
+    .card h2{font-size:24px;margin-bottom:24px;}
+    .story{padding:20px 22px;}
+    .story p{font-size:15px;}
+    .script{padding:22px 22px 24px;}
+    .script p{font-size:16px;}
+    .wa{padding:20px 22px;}
+    .beat{padding-left:20px;}
+    .beat h3{font-size:18px;}
+    .rulebox{padding:24px 22px;}
+    .rulebox p{font-size:18px;}
+    .oneliner{padding:38px 26px;}
+    .oneliner p{font-size:20px;}
+    .toc{padding:32px 26px 28px;}
+    .toc h3{font-size:23px;}
+    .toc li{font-size:15px;}
+    .toc a{gap:13px;padding:11px 2px;}
+    .toc a::before{flex:0 0 26px;height:26px;font-size:12px;}
+    .ground-rules{padding:28px 26px;}
+    .say{font-size:16px;}
+    .ptable{font-size:14.5px;}
+    .ptable td:first-child{width:38%;}
+    .nav-btns{right:16px;bottom:18px;}
+    .nav-btns button{width:44px;height:44px;font-size:19px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>The Deposit Gate</h1>
+  <p>Why We Take &pound;500 Before We Design</p>
+</header>
+
+<div class="wrap">
+
+  <div class="toc">
+    <h3>The Pitch, End to End</h3>
+    <p class="toc-sub">Nine cards &middot; learn the shape, not the words</p>
+    <ol>
+      <li><a href="#c1">The One-Liner — For You</a></li>
+      <li><a href="#c2">The Three-Beat Story</a></li>
+      <li><a href="#c3">The Two Worked Examples</a></li>
+      <li><a href="#c4">The Reframe — What the &pound;500 Actually Is</a></li>
+      <li><a href="#c5">The Guardrail — Sequencing</a></li>
+      <li><a href="#c6">Spoken Version — For Calls</a></li>
+      <li><a href="#c7">Written Version — For WhatsApp</a></li>
+      <li><a href="#c8">The Three Pushbacks</a></li>
+      <li><a href="#c9">What Happens the Second They Pay</a></li>
+    </ol>
+  </div>
+
+  <div class="ground-rules" id="ground-rules">
+    <h3>How to Use This</h3>
+    <ol>
+      <li><strong>This is a shape, not a script to recite.</strong> The three beats are the argument. Learn them, then say them in your own words, in your own order, wherever they fit the conversation.</li>
+      <li><strong>The gate goes after first human contact. Never before.</strong> This is the one rule that can't be bent — see Card 5. Lead with the deposit and you'll scare off the buyers you most want.</li>
+      <li><strong>The honesty is the pitch.</strong> The strongest line in here is the admission that we've let people wait. Don't smooth it out. It's what makes everything after it believable.</li>
+    </ol>
+  </div>
+
+  <div class="oneliner" id="c1">
+    <span class="oneliner-tag">One &middot; The one-liner, for you</span>
+    <p>"The deposit isn't me protecting my money. It's me protecting my hours &mdash; so the people who are actually buying get the attention they deserve."</p>
+  </div>
+
+  <div class="card">
+    <span class="label">Why it matters</span>
+    <div class="say">
+      <p>Every hour spent designing for someone who was never going to buy is an hour stolen from someone who already has.</p>
+      <p>That isn't a discipline problem. At six or seven consultations a day, <strong>it's arithmetic</strong>.</p>
+    </div>
+    <div class="move"><strong>Half of this job is convincing yourself.</strong> The gate isn't a hardening of the business &mdash; it's what makes it possible to be generous with the people who are real.</div>
+  </div>
+
+  <div class="card" id="c2">
+    <span class="num">Two</span>
+    <h2>The Three-Beat Story</h2>
+    <span class="label">The argument underneath everything else</span>
+
+    <div class="beat">
+      <span class="beat-num">Beat one</span>
+      <h3>The easy one dies quietly</h3>
+      <p>A customer wants a round wood-burning hot tub. Standard item. Nothing bespoke. She messages after a call.</p>
+      <p>It's read in ten minutes. It isn't answered.</p>
+      <p>She has to chase. Twelve days later she still hasn't got a clean price or a clear photo. She writes: <em>a bit disappointed.</em></p>
+      <p>That sale was never hard. It was five grand of stock. <strong>It died in the gap between "read" and "replied."</strong></p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-num">Beat two</span>
+      <h3>The big one stalls even when you win it</h3>
+      <p>A multi-room build. Thirty-three minute call, site visit, verbal yes, deposit sent. <strong>Won.</strong></p>
+      <p>And then it stops &mdash; because the plan, the price and the first-fix sheet all live in one person's head and one person's spare evenings.</p>
+      <p>The deposit worked. <strong>What came after it didn't.</strong></p>
+    </div>
+
+    <div class="beat final">
+      <span class="beat-num">Beat three</span>
+      <h3>Now times it by ten</h3>
+      <p>One missed message. One stalled build. Now run ten of those at once, alongside the calls, the quotes, the workshop.</p>
+      <p>It stops being about effort.</p>
+      <p><strong>It becomes physically impossible.</strong></p>
+      <p>Not "I need to try harder." There aren't enough hours in the day to give every enquiry a full custom design.</p>
+    </div>
+
+    <div class="move" style="margin-top:30px;"><strong>The landing:</strong> So we qualify. The &pound;500 tells us who's real. The real ones get the hours.</div>
+  </div>
+
+  <div class="card" id="c3">
+    <span class="num">Three</span>
+    <h2>The Two Worked Examples</h2>
+    <span class="label">Anonymised &mdash; safe to say in front of a prospect</span>
+
+    <div class="story">
+      <span class="story-tag">The one we lost</span>
+      <p>"We had a lady after a straightforward wood-fired tub. Nothing complicated &mdash; a standard build. She messaged me, I read it, and I didn't get back to her properly for nearly two weeks because I was buried in calls. By the time I did, she'd gone cold.</p>
+      <p>And that one was <em>easy</em>. That's the one that stings."</p>
+    </div>
+
+    <div class="story">
+      <span class="story-tag">The one we won</span>
+      <p>"Then there's a big multi-room project. Proper build, big spend. He'd had the full call, come out to site, said yes. But between him saying yes and me getting the plans over, it just sat &mdash; because I was doing the plans myself, at night, between everything else.</p>
+      <p>He waited. He shouldn't have had to."</p>
+    </div>
+
+    <div class="story">
+      <span class="story-tag">The turn</span>
+      <p>"Now imagine ten of those running at once. That's where I am. So we changed how we do it."</p>
+    </div>
+
+    <div class="move"><strong>Why real beats hypothetical:</strong> a made-up example sounds like a sales technique. A real one you're clearly still annoyed about sounds like the truth &mdash; because it is. Keep the irritation in your voice.</div>
+  </div>
+
+  <div class="card" id="c4">
+    <span class="num">Four</span>
+    <h2>The Reframe &mdash; What the &pound;500 Actually Is</h2>
+    <span class="label">Not a fee. Not a barrier. A place in the queue.</span>
+    <div class="say">
+      <p><strong>It comes off your build.</strong> It isn't an extra charge &mdash; it's the first &pound;500 of what you were going to pay anyway.</p>
+      <p><strong>Once it's in, you're not an enquiry any more. You're a buyer.</strong> That flips how we work. You go to the front.</p>
+      <p><strong>You get the real design hours.</strong> Full plans, proper drawings, a full presentation &mdash; not a rushed sketch between calls.</p>
+      <p><strong>It's a small commitment made <em>after</em> we've given you a plan and a price.</strong> You know what you're buying before you pay a penny.</p>
+      <p><strong>We're a workshop, not a warehouse.</strong> There's nothing on a shelf. We build yours. The deposit is what turns a conversation into a build slot.</p>
+    </div>
+    <div class="move"><strong>The move:</strong> never describe it as a cost. It's an upgrade in how they get treated. The price of the sauna hasn't changed &mdash; only when they pay part of it.</div>
+  </div>
+
+  <div class="card" id="c5">
+    <span class="num">Five</span>
+    <h2>The Guardrail &mdash; Sequencing</h2>
+    <span class="label">The rule that stops the gate scaring off good buyers</span>
+
+    <div class="rulebox">
+      <span class="rulebox-tag">Non-negotiable</span>
+      <p>The deposit ask comes AFTER first human contact.<br>Never before.</p>
+    </div>
+
+    <div class="say">
+      <p>Nobody pays &pound;500 to a stranger. They pay it to someone who's already given them something.</p>
+    </div>
+
+    <ol class="seq">
+      <li><strong>Call</strong> &mdash; real conversation, understand the project</li>
+      <li><strong>Ballpark plan and price</strong> &mdash; free, no obligation</li>
+      <li><strong>Site visit or show site</strong>, if it's a big one</li>
+      <li class="gate"><strong>Then</strong> the deposit ask &mdash; to unlock the full design</li>
+      <li><strong>Full plans, presentation, detailed spec</strong></li>
+    </ol>
+
+    <div class="say">
+      <p>The big multi-room build only agreed <strong>after</strong> the 33-minute call and the site visit. He'd been given value first. That's why it landed.</p>
+    </div>
+
+    <div class="move"><strong>The move:</strong> never lead with the deposit. Earn it in the first fifteen minutes, then ask. The gate isn't a filter at the door &mdash; it's a filter after the tour.</div>
+  </div>
+
+  <div class="card" id="c6">
+    <span class="num">Six</span>
+    <h2>Spoken Version &mdash; For Calls</h2>
+    <span class="label">Say it &mdash; don't read it</span>
+
+    <div class="script">
+      <span class="script-tag">Word for word</span>
+      <p>"Right &mdash; let me be straight with you about how we run this, because it'll make sense of what I'm about to ask.</p>
+      <p>From this chat I can give you a solid idea of what your build looks like and what it costs. That bit's free, no obligation. You'll walk away knowing your number either way.</p>
+      <p>Where it changes is the <strong>full</strong> design &mdash; the detailed plans, the drawings, the proper presentation. That's real hours from our team.</p>
+      <p>And I'll be honest with you. We're doing six or seven of these consultations a day. I've had customers I genuinely wanted to help wait too long, because I was buried designing for people who were never going to build. That's on the system, not on them, and I've fixed it.</p>
+      <p>So here's how it works now. Once you're happy with the plan and the price, it's a <strong>&pound;500 deposit to lock it in</strong>. That's not a fee &mdash; it comes straight off your build. What it does is secure your place in the queue and put your project at the front, so we can put the real design hours into it knowing it's a live build.</p>
+      <p>The moment that's in, you're not an enquiry any more. <strong>You're a buyer, and you get treated like one.</strong>"</p>
+    </div>
+
+    <span class="label">Delivery notes</span>
+    <div class="say">
+      <p><strong>Deliver it after you've given them the ballpark.</strong> Never before.</p>
+      <p><strong>The honesty about being buried is the strongest bit.</strong> Don't smooth it out &mdash; it's what makes them believe the rest.</p>
+      <p><strong>Don't apologise for the gate.</strong> State it like a fact, not a request. If you sound like you're asking permission, they'll hear a negotiation.</p>
+      <p><strong>If they hesitate:</strong> "Totally fine &mdash; take the plan and the price away, have a think. Nothing to pay for that." Then follow up. <em>Hesitation isn't a no.</em></p>
+    </div>
+  </div>
+
+  <div class="card" id="c7">
+    <span class="num">Seven</span>
+    <h2>Written Version &mdash; For WhatsApp</h2>
+    <span class="label">Send-ready &mdash; trim the top if the thread's already warm</span>
+
+    <div class="wa">
+      <span class="wa-tag">Full version</span>
+      <p>Hey [name] 👋</p>
+      <p>So from what you've told me I can get you a solid plan and a price &mdash; that's free, no obligation, and you'll know exactly what you're looking at.</p>
+      <p>Just so you know how we run things:</p>
+      <p>The full design &mdash; detailed plans, drawings, the proper presentation &mdash; is real hours from our team. We're doing six or seven consultations a day at the minute, so once you're happy with the plan and the price, it's a <strong>&pound;500 deposit to lock it in</strong>.</p>
+      <p>That's not a fee &mdash; it comes straight off your build. What it does is secure your place in the queue and put your project to the front, so we can put proper design time into it knowing it's a live build.</p>
+      <p>Once that's in you're not an enquiry any more, you're a buyer &mdash; and we treat it like it. 👍</p>
+      <p>Happy to get the plan and price over to you first either way?</p>
+    </div>
+
+    <div class="wa">
+      <span class="wa-tag">Short version &mdash; thread already warm</span>
+      <p>Right &mdash; once you're happy with the plan and the price, it's a &pound;500 deposit to lock it in. That comes straight off the build, and it secures your slot in the queue.</p>
+      <p>That's when the proper design work starts &mdash; full plans, drawings, the lot. It's how we make sure the hours go into live builds. 👍</p>
+    </div>
+
+    <div class="move"><strong>The move:</strong> end on a question, not the ask. "Happy to get the plan and price over first?" gives them an easy yes that isn't the &pound;500 &mdash; and once they've said yes to something, the deposit is a smaller step.</div>
+  </div>
+
+  <div class="card" id="c8">
+    <span class="num">Eight</span>
+    <h2>The Three Pushbacks</h2>
+    <span class="label">Have the answer ready &mdash; don't improvise it</span>
+    <table class="ptable">
+      <tr><th>They say</th><th>You say</th></tr>
+      <tr>
+        <td>"Why should I pay before I've seen a design?"</td>
+        <td>"You won't be. You'll have a plan and a price before anything's paid &mdash; that's free. The deposit only unlocks the <strong>detailed</strong> design."</td>
+      </tr>
+      <tr>
+        <td>"What if I change my mind?"</td>
+        <td>"It's non-refundable, but it comes off your build and it holds your slot. That's why we only ask once you're happy with the number &mdash; nobody's paying blind."</td>
+      </tr>
+      <tr>
+        <td>"Nobody else asks for this."</td>
+        <td>"We're not a shop, we're a manufacturer. There's nothing on a shelf &mdash; we build yours. The deposit is what turns it into a build slot."</td>
+      </tr>
+    </table>
+    <div class="move"><strong>The move:</strong> every pushback is answered by pointing back at the sequence. They've already had something free. The deposit only buys what comes next.</div>
+  </div>
+
+  <div class="card" id="c9" style="border-top:4px solid var(--terracotta);">
+    <span class="num">Nine</span>
+    <h2>What Happens the Second They Pay</h2>
+    <span class="label">So you can say it with confidence</span>
+    <div class="say">
+      <p>The moment the &pound;500 lands, automatically:</p>
+      <p>&mdash; They get an <strong>email within seconds</strong> &mdash; deposit received, place secured, what happens next<br>
+      &mdash; They get an <strong>SMS</strong> confirming the same<br>
+      &mdash; <strong>You get a notification</strong> to call them within 24 hours<br>
+      &mdash; <strong>Marta gets a notification</strong> to reconcile the payment<br>
+      &mdash; They move to <strong>Deposit Paid</strong> in the pipeline</p>
+      <p><strong>You don't have to remember any of it. That's the point.</strong></p>
+    </div>
+    <div class="move"><strong>Why this card exists:</strong> "you're a buyer, and you get treated like one" used to be a promise. Now it's a fact &mdash; the system does it whether anyone remembers or not. That's what makes it safe to say out loud.</div>
+  </div>
+
+  <div class="oneliner">
+    <span class="oneliner-tag">If you only remember one thing</span>
+    <p>"The plan and the price are free. The deposit buys you the queue."</p>
+  </div>
+
+  <footer>
+    <p class="rule">Hand-built in Wales. Built to last.</p>
+    <p>Barrel Sauna UK &middot; Internal sales reference &middot; Private</p>
+  </footer>
+
+</div>
+
+<div class="nav-btns" id="navBtns">
+  <button id="toTop" aria-label="Scroll to top">&#8593;</button>
+  <button id="toBottom" aria-label="Scroll to bottom">&#8595;</button>
+</div>
+
+<script>
+  var navBtns = document.getElementById('navBtns');
+  var toTop = document.getElementById('toTop');
+  var toBottom = document.getElementById('toBottom');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 300) { navBtns.classList.add('show'); }
+    else { navBtns.classList.remove('show'); }
+  });
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+  toBottom.addEventListener('click', function(){ window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); });
+</script>
+
+</body>
+</html>
