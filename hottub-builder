@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BSUK — Hot Tub Estimate Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#2B5336;
+    --sage:#50795F;
+    --bone:#F1F2EC;
+    --terracotta:#C08B41;
+    --ink:#1E1E1C;
+    --muted:#6B6F68;
+    --line:#DCDED4;
+    --flag-bg:#FBF3E6;
+    --flag-line:#E4C28A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bone);color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+
+  header{background:var(--forest);color:var(--bone);padding:44px 24px 40px}
+  header .inner{max-width:1120px;margin:0 auto}
+  .eyebrow{
+    font-family:Raleway,sans-serif;font-size:12px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;
+    color:var(--terracotta);margin-bottom:12px;
+  }
+  h1{
+    font-family:Raleway,sans-serif;font-weight:700;
+    font-size:clamp(30px,4.5vw,42px);line-height:1.15;
+    letter-spacing:-.01em;margin-bottom:12px;
+  }
+  .lede{font-size:16px;max-width:60ch;color:#D6DCD4}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:36px 24px 90px}
+  .cols{display:grid;grid-template-columns:1fr 372px;gap:32px;align-items:start}
+  @media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+  .status{
+    background:var(--flag-bg);border:1px solid var(--flag-line);
+    border-left:4px solid var(--terracotta);
+    padding:16px 18px;margin-bottom:28px;font-size:14px;
+  }
+  .status strong{
+    font-family:Raleway,sans-serif;font-weight:700;
+    display:block;margin-bottom:3px;color:var(--forest);
+  }
+
+  .card{
+    background:#fff;border:1px solid var(--line);
+    padding:24px 26px;margin-bottom:22px;
+  }
+  .card h2{
+    font-family:Raleway,sans-serif;font-weight:700;font-size:19px;
+    color:var(--forest);margin-bottom:3px;letter-spacing:-.01em;
+  }
+  .card .sub{color:var(--muted);font-size:14px;margin-bottom:20px;max-width:62ch}
+
+  .opt{
+    display:flex;align-items:flex-start;gap:13px;
+    padding:14px 15px;border:1px solid var(--line);
+    margin-bottom:9px;cursor:pointer;
+    transition:border-color .12s, background .12s;
+    background:#fff;
+  }
+  .opt:last-child{margin-bottom:0}
+  .opt:hover{border-color:var(--sage)}
+  .opt.on{border-color:var(--forest);background:#F7F9F5}
+  .opt.on.flagged{border-color:var(--terracotta);background:var(--flag-bg)}
+  .opt input{margin-top:4px;accent-color:var(--forest);flex-shrink:0;cursor:pointer}
+  .opt .body{flex:1;min-width:0}
+  .opt .name{font-weight:600;font-size:15px;display:block}
+  .opt .desc{font-size:13px;color:var(--muted);display:block;margin-top:2px}
+  .opt .amt{
+    font-family:Raleway,sans-serif;font-weight:700;font-size:15px;
+    color:var(--forest);white-space:nowrap;padding-left:8px;
+  }
+  .opt.flagged .amt{color:var(--terracotta)}
+
+  .flag{
+    display:inline-block;background:var(--terracotta);color:#fff;
+    font-family:Raleway,sans-serif;font-size:9px;font-weight:700;
+    letter-spacing:.09em;text-transform:uppercase;
+    padding:2px 6px;border-radius:2px;margin-left:7px;vertical-align:1px;
+  }
+  .flag.grey{background:var(--muted)}
+
+  .note{
+    background:var(--flag-bg);border:1px solid var(--flag-line);
+    padding:13px 15px;margin-top:16px;font-size:13.5px;color:#5C4A2E;
+  }
+  .note strong{color:var(--forest);font-family:Raleway,sans-serif}
+
+  .estimate{position:sticky;top:22px}
+  .estimate .inner{background:#fff;border:2px solid var(--forest)}
+  .estimate .head{background:var(--forest);color:var(--bone);padding:16px 20px}
+  .estimate .head h2{
+    font-family:Raleway,sans-serif;font-size:12px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);
+  }
+  .estimate .lines{padding:18px 20px;min-height:80px}
+  .line{
+    display:flex;justify-content:space-between;gap:12px;
+    padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;
+  }
+  .line:last-child{border-bottom:none}
+  .line .l{flex:1;min-width:0}
+  .line .v{
+    font-family:Raleway,sans-serif;font-weight:600;
+    white-space:nowrap;color:var(--forest);
+  }
+  .line.flagged .v{color:var(--terracotta)}
+  .line.flagged .l::after{
+    content:"needs price";display:block;font-size:11px;
+    color:var(--terracotta);font-weight:600;text-transform:uppercase;
+    letter-spacing:.07em;margin-top:1px;
+  }
+  .empty{color:var(--muted);font-size:14px;font-style:italic;padding:8px 0}
+
+  .totals{border-top:1px solid var(--line);padding:16px 20px;background:#FAFBF7}
+  .trow{display:flex;justify-content:space-between;font-size:14px;margin-bottom:7px}
+  .trow .v{font-family:Raleway,sans-serif;font-weight:600}
+  .trow.grand{
+    margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:16px;
+  }
+  .trow.grand .l{font-family:Raleway,sans-serif;font-weight:700;color:var(--forest)}
+  .trow.grand .v{
+    font-family:Raleway,sans-serif;font-weight:700;
+    font-size:22px;color:var(--forest);
+  }
+  .prov{
+    background:var(--flag-bg);border-top:1px solid var(--flag-line);
+    padding:13px 20px;font-size:13px;color:#5C4A2E;display:none;
+  }
+  .prov.show{display:block}
+  .prov strong{font-family:Raleway,sans-serif;color:var(--terracotta)}
+
+  .deposit{background:var(--forest);color:var(--bone);padding:14px 20px;font-size:13px}
+  .deposit strong{color:#fff;font-family:Raleway,sans-serif}
+
+  .actions{padding:16px 20px;display:flex;gap:9px;border-top:1px solid var(--line)}
+  button{
+    flex:1;font-family:Raleway,sans-serif;font-size:13px;font-weight:600;
+    padding:11px 12px;border:1px solid var(--forest);cursor:pointer;
+    background:#fff;color:var(--forest);transition:background .12s,color .12s;
+  }
+  button:hover{background:var(--forest);color:#fff}
+  button.primary{background:var(--forest);color:#fff}
+  button.primary:hover{background:#22422B}
+
+  .decision{border:2px solid var(--forest);background:#fff;padding:26px 28px;margin-top:14px}
+  .decision h2{
+    font-family:Raleway,sans-serif;font-weight:700;font-size:19px;
+    color:var(--forest);margin-bottom:3px;
+  }
+  .decision .sub{color:var(--muted);font-size:14px;margin-bottom:4px}
+  .decision ol{margin-top:16px;padding:0;list-style:none;counter-reset:d}
+  .decision li{
+    counter-increment:d;padding:13px 0 13px 40px;
+    border-bottom:1px solid var(--line);position:relative;font-size:14.5px;
+  }
+  .decision li:last-child{border-bottom:none;padding-bottom:0}
+  .decision li::before{
+    content:counter(d);position:absolute;left:0;top:13px;
+    width:24px;height:24px;background:var(--forest);color:#fff;
+    font-family:Raleway,sans-serif;font-size:11px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;border-radius:50%;
+  }
+  .decision li strong{
+    font-family:Raleway,sans-serif;color:var(--forest);
+    display:block;margin-bottom:2px;
+  }
+  .decision li .why{color:var(--muted);font-size:13px;display:block;margin-top:3px}
+
+  footer{
+    max-width:1120px;margin:52px auto 0;padding:22px 24px 0;
+    border-top:1px solid var(--line);color:var(--muted);font-size:13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="eyebrow">Barrel Sauna UK · Estimate Builder</div>
+    <h1>Hot Tubs</h1>
+    <p class="lede">Build an estimate on the call. Thermowood, made to order, clad to match the saunas. Tick what they want — the total builds itself.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="status">
+    <strong>Internal draft — not customer-facing</strong>
+    Options in terracotta have no confirmed price. Any estimate containing one is marked provisional and cannot be sent. Four answers from Liam clears them all — decision sheet at the bottom.
+  </div>
+
+  <div class="cols">
+
+    <div>
+      <div class="card">
+        <h2>The tub</h2>
+        <p class="sub">Pick one. Round is the house recommendation — it looks authentic, and it's clad in the same material as the sauna so the pair sit together properly.</p>
+        <div id="base"></div>
+        <div class="note">
+          <strong>Why two of these have no price.</strong> The brochure lists the Thermowood tub at £5,495. The onboarding pack shows £5,495 in one worked deal and £7,995 in another — same product name, no stated reason for the £2,500 gap. Until we know whether that's size, spec, or an error, this tool won't guess. Standalone and bespoke shapes have never had a price at all.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Jets, lights &amp; extras</h2>
+        <p class="sub">The brochure describes jets and LEDs as features of the tub. The closer scripts describe them as things we add. Those can't both be true — flagged until it's settled.</p>
+        <div id="extras"></div>
+      </div>
+
+      <div class="card">
+        <h2>Delivery &amp; install</h2>
+        <p class="sub">Straight from the brochure — these are solid. A tub and sauna going out together is one delivery, not two.</p>
+        <div id="delivery"></div>
+      </div>
+
+      <div class="decision">
+        <h2>Decision sheet</h2>
+        <p class="sub">Four answers and this tool goes live. Everything else is already locked.</p>
+        <ol>
+          <li>
+            <strong>Why is the tub £5,495 in one onboarding deal and £7,995 in another?</strong>
+            Size, spec, or a mistake in the pack?
+            <span class="why">Risk: Ollie is being onboarded on a document quoting two prices for one product. Whichever he reads first is what he'll use.</span>
+          </li>
+          <li>
+            <strong>What's the standalone price — no sauna in the order?</strong>
+            <span class="why">Risk: three live buyers are blocked on this. It's the most-asked figure we don't have.</span>
+          </li>
+          <li>
+            <strong>Do bespoke shapes carry an upcharge?</strong>
+            Flat fee, percentage, or POA?
+            <span class="why">Risk: closers are offering bespoke shapes with no pricing rule behind them.</span>
+          </li>
+          <li>
+            <strong>What ships as standard, and what's an upgrade?</strong>
+            Jets, LEDs, massage jets, steps, thermocover.
+            <span class="why">Risk: we describe the same tub as fully-loaded in the brochure and stripped-back on calls.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="estimate">
+      <div class="inner">
+        <div class="head"><h2>Estimate</h2></div>
+        <div class="lines" id="lines"></div>
+        <div class="totals">
+          <div class="trow"><span class="l">Subtotal</span><span class="v" id="sub">£0</span></div>
+          <div class="trow"><span class="l">VAT @ 20%</span><span class="v" id="vat">£0</span></div>
+          <div class="trow grand"><span class="l">Total</span><span class="v" id="grand">£0</span></div>
+        </div>
+        <div class="prov" id="prov">
+          <strong>Provisional.</strong> This estimate includes items with no confirmed price. Do not send it.
+        </div>
+        <div class="deposit">
+          <strong>£500 deposit</strong> secures the build slot. Non-refundable — it's the design time.
+        </div>
+        <div class="actions">
+          <button class="primary" onclick="copyEstimate()">Copy</button>
+          <button onclick="resetAll()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Barrel Sauna UK · Liam James HQ · Bespoke saunas, hot tubs and shepherd huts · South Wales<br>
+  Internal estimate builder — v1 draft, July 2026. All prices exclude VAT. Not for customer distribution until flags are cleared.
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   PRICING CONFIG — the only block you edit.
+
+   price: null  = no confirmed figure. Flags the item and
+                  marks any estimate containing it provisional.
+
+   Change a null to a number and it goes live. Nothing
+   else in this file needs touching.
+   ══════════════════════════════════════════════════════════ */
+const PRICING = {
+
+  base: [
+    { id:'with-sauna', name:'Thermowood tub — with a sauna',
+      desc:'The standard pairing. Most tubs go out this way.',
+      price:5495, flag:'CONFIRM — brochure says £5,495, onboarding pack says £7,995' },
+
+    { id:'standalone', name:'Thermowood tub — standalone',
+      desc:'No sauna in the order.',
+      price:null, flag:'MISSING — never had a price' },
+
+    { id:'bespoke', name:'Bespoke shape — cube or non-round',
+      desc:'We build any shape. Round is the recommendation.',
+      price:null, flag:'MISSING — upcharge unknown' }
+  ],
+
+  extras: [
+    { id:'jets', name:'Air & jacuzzi jets',
+      desc:'Brochure calls this standard. Scripts call it an add-on.',
+      price:null, flag:'CONFIRM — standard or upgrade?' },
+
+    { id:'massage', name:'Massage jets',
+      desc:'',
+      price:null, flag:'CONFIRM — standard or upgrade?' },
+
+    { id:'leds', name:'LED lighting',
+      desc:'',
+      price:null, flag:'CONFIRM — standard or upgrade?' },
+
+    { id:'cover', name:'Insulated thermocover & steps',
+      desc:'Scripts bundle these in. Brochure is silent.',
+      price:null, flag:'CONFIRM — standard or upgrade?' },
+
+    { id:'tank', name:'Heated water tank — wood burner',
+      desc:'Brochure customisation option.',
+      price:375, flag:null }
+  ],
+
+  delivery: [
+    { id:'collect',   name:'Collection', desc:'They come to us.', price:0, flag:null },
+    { id:'assembled', name:'Fully assembled — England / Wales', desc:'', price:495, flag:null },
+    { id:'ire-scot',  name:'Ireland / Scotland / Isle of Wight', desc:'', price:300, flag:null },
+    { id:'eu',        name:'EU delivery', desc:'', price:500, flag:null },
+    { id:'onsite',    name:'Full onsite build', desc:'', price:1250, flag:null },
+    { id:'crane',     name:'Crane delivery', desc:'Estimate — site dependent.', price:1200, flag:null },
+    { id:'decking',   name:'Decking', desc:'Send a video of the space first.', price:null, flag:'POA — priced per job' }
+  ]
+
+};
+/* ═══════════════════ END CONFIG ═══════════════════ */
+
+
+const state = { base:null, extras:new Set(), delivery:'collect' };
+
+const money = n => '£' + n.toLocaleString('en-GB');
+
+function priceLabel(item){
+  if (item.price === null) return '—';
+  if (item.price === 0)    return 'Included';
+  return money(item.price);
+}
+
+function render(){
+  document.getElementById('base').innerHTML = PRICING.base.map(o => `
+    <label class="opt ${state.base===o.id?'on':''} ${o.flag?'flagged':''}" title="${o.flag||''}">
+      <input type="radio" name="base" ${state.base===o.id?'checked':''} onchange="pickBase('${o.id}')">
+      <span class="body">
+        <span class="name">${o.name}${o.flag?`<span class="flag">${o.flag.startsWith('MISSING')?'Missing':'Confirm'}</span>`:''}</span>
+        ${o.desc?`<span class="desc">${o.desc}</span>`:''}
+      </span>
+      <span class="amt">${priceLabel(o)}</span>
+    </label>`).join('');
+
+  document.getElementById('extras').innerHTML = PRICING.extras.map(o => `
+    <label class="opt ${state.extras.has(o.id)?'on':''} ${o.flag?'flagged':''}" title="${o.flag||''}">
+      <input type="checkbox" ${state.extras.has(o.id)?'checked':''} onchange="toggleExtra('${o.id}')">
+      <span class="body">
+        <span class="name">${o.name}${o.flag?`<span class="flag">Confirm</span>`:''}</span>
+        ${o.desc?`<span class="desc">${o.desc}</span>`:''}
+      </span>
+      <span class="amt">${priceLabel(o)}</span>
+    </label>`).join('');
+
+  document.getElementById('delivery').innerHTML = PRICING.delivery.map(o => `
+    <label class="opt ${state.delivery===o.id?'on':''} ${o.flag?'flagged':''}" title="${o.flag||''}">
+      <input type="radio" name="del" ${state.delivery===o.id?'checked':''} onchange="pickDelivery('${o.id}')">
+      <span class="body">
+        <span class="name">${o.name}${o.flag?`<span class="flag grey">POA</span>`:''}</span>
+        ${o.desc?`<span class="desc">${o.desc}</span>`:''}
+      </span>
+      <span class="amt">${priceLabel(o)}</span>
+    </label>`).join('');
+
+  buildEstimate();
+}
+
+function pickBase(id){ state.base = id; render(); }
+function pickDelivery(id){ state.delivery = id; render(); }
+function toggleExtra(id){
+  state.extras.has(id) ? state.extras.delete(id) : state.extras.add(id);
+  render();
+}
+
+function selected(){
+  const out = [];
+  const b = PRICING.base.find(o => o.id === state.base);
+  if (b) out.push(b);
+  PRICING.extras.forEach(o => { if (state.extras.has(o.id)) out.push(o); });
+  const d = PRICING.delivery.find(o => o.id === state.delivery);
+  if (d && d.price !== 0) out.push(d);
+  return out;
+}
+
+function buildEstimate(){
+  const items = selected();
+  const lines = document.getElementById('lines');
+
+  if (!items.length){
+    lines.innerHTML = '<div class="empty">Nothing selected yet.</div>';
+  } else {
+    lines.innerHTML = items.map(o => `
+      <div class="line ${o.price===null?'flagged':''}">
+        <span class="l">${o.name}</span>
+        <span class="v">${o.price===null?'—':money(o.price)}</span>
+      </div>`).join('');
+  }
+
+  const sub  = items.reduce((t,o) => t + (o.price || 0), 0);
+  const vat  = Math.round(sub * 0.2);
+  const prov = items.some(o => o.price === null);
+
+  document.getElementById('sub').textContent   = money(sub);
+  document.getElementById('vat').textContent   = money(vat);
+  document.getElementById('grand').textContent = money(sub + vat);
+  document.getElementById('prov').classList.toggle('show', prov);
+}
+
+function copyEstimate(){
+  const items = selected();
+  if (!items.length){ alert('Nothing selected.'); return; }
+
+  const sub  = items.reduce((t,o) => t + (o.price || 0), 0);
+  const vat  = Math.round(sub * 0.2);
+  const prov = items.some(o => o.price === null);
+
+  let txt = 'BARREL SAUNA UK — HOT TUB ESTIMATE\n\n';
+  items.forEach(o => {
+    txt += `${o.name}  ${o.price===null ? '— PRICE TO CONFIRM' : money(o.price)}\n`;
+  });
+  txt += `\nSubtotal   ${money(sub)}\n`;
+  txt += `VAT @ 20%  ${money(vat)}\n`;
+  txt += `TOTAL      ${money(sub + vat)}\n\n`;
+  txt += 'Estimate only — final figure set once the build is specced.\n';
+  txt += '£500 deposit secures the build slot. Non-refundable.\n';
+  if (prov) txt += '\n*** PROVISIONAL — contains unpriced items. DO NOT SEND. ***\n';
+
+  navigator.clipboard.writeText(txt)
+    .then(() => alert(prov ? 'Copied — but this estimate is provisional. Do not send it.' : 'Estimate copied.'))
+    .catch(() => alert('Copy failed. Select the panel and copy by hand.'));
+}
+
+function resetAll(){
+  state.base = null;
+  state.extras.clear();
+  state.delivery = 'collect';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
