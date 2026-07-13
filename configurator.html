@@ -7,16 +7,18 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="deposit-copy.js"></script>
 
 <style>
 /* ============================================================
    BSUK LIVE ESTIMATE CONFIGURATOR
+   ------------------------------------------------------------
    Static. No backend. Works offline once loaded.
    ALL PRICES MARKED /* CONFIRM */ ARE PLACEHOLDERS.
    Deposit wording lives in deposit-copy.js — not here.
+   Font: Raleway throughout, matching the Closer Guide.
    ============================================================ */
 
 :root{
@@ -26,7 +28,7 @@
   --sage:#50795F;
   --sage-l:#A8C4A0;
   --bone:#F1F2EC;
-  --terracotta:#C08B41;
+  --terracotta:#A0522D;
   --terracotta-l:#DCA95F;
   --ink:#1C2A20;
   --mute:#7A8880;
@@ -36,16 +38,18 @@
   --warn:#B4551F;
   --warn-bg:#FBF1E6;
   --shadow:0 1px 2px rgba(28,42,32,.04), 0 4px 16px rgba(28,42,32,.06);
+  --font:'Raleway',Helvetica,Arial,sans-serif;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family:var(--font);
+  font-weight:500;
   background:var(--bone);
   color:var(--ink);
   font-size:15px;
-  line-height:1.5;
+  line-height:1.55;
   -webkit-font-smoothing:antialiased;
   -webkit-text-size-adjust:100%;
 }
@@ -58,14 +62,12 @@ body{
   text-align:center;
 }
 .mast h1{
-  font-family:'Raleway',sans-serif;
   font-size:38px;
   font-weight:800;
   letter-spacing:-.8px;
   line-height:1.1;
 }
 .mast .eyebrow{
-  font-family:'Raleway',sans-serif;
   font-size:10px;
   font-weight:700;
   letter-spacing:3px;
@@ -82,7 +84,7 @@ body{
 }
 .mast .eyebrow a:hover{color:var(--white);border-color:var(--white)}
 
-/* ---------- STICKY TOTAL BAR (thin, follows) ---------- */
+/* ---------- STICKY TOTAL BAR ---------- */
 .tbar{
   position:sticky;
   top:0;
@@ -103,7 +105,6 @@ body{
 }
 .tbar.show{height:56px}
 .tbar .who{
-  font-family:'Raleway',sans-serif;
   font-size:11px;
   font-weight:700;
   letter-spacing:2.4px;
@@ -114,12 +115,12 @@ body{
   text-overflow:ellipsis;
 }
 .tbar .amt{
-  font-family:'Raleway',sans-serif;
-  font-size:24px;
+  font-size:25px;
   font-weight:800;
   letter-spacing:-.6px;
   font-variant-numeric:tabular-nums;
   white-space:nowrap;
+  color:var(--bone);
 }
 .tbar .amt.pulse{animation:pop .28s ease}
 @keyframes pop{50%{transform:scale(1.05)}}
@@ -130,7 +131,6 @@ body{
   border-bottom:1px solid rgba(180,85,31,.25);
   color:var(--warn);
   padding:10px 32px;
-  font-family:'Raleway',sans-serif;
   font-size:11px;
   font-weight:700;
   letter-spacing:1.4px;
@@ -163,7 +163,6 @@ body{
   box-shadow:var(--shadow);
 }
 .card > h2{
-  font-family:'Raleway',sans-serif;
   font-size:11px;
   font-weight:700;
   letter-spacing:2.2px;
@@ -180,10 +179,10 @@ body{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:20px;height:20px;
+  width:22px;height:22px;
   border-radius:50%;
-  background:var(--bone);
-  color:var(--sage);
+  background:var(--forest);
+  color:var(--bone);
   font-size:10px;
   font-weight:700;
   margin-right:11px;
@@ -192,7 +191,6 @@ body{
 }
 .card > h2 .ttl{flex:1;display:flex;align-items:center}
 .tag-nc{
-  font-family:'Raleway',sans-serif;
   font-size:9px;
   font-weight:700;
   letter-spacing:1.2px;
@@ -211,7 +209,6 @@ body{
 .field:last-child{margin-bottom:0}
 .field label{
   display:block;
-  font-family:'Raleway',sans-serif;
   font-size:10px;
   font-weight:700;
   letter-spacing:1.6px;
@@ -224,7 +221,8 @@ select,input[type=number],input[type=text],input[type=email],textarea{
   padding:11px 13px;
   border:1px solid var(--line);
   border-radius:7px;
-  font-family:inherit;
+  font-family:var(--font);
+  font-weight:500;
   font-size:15px;
   background:var(--white);
   color:var(--ink);
@@ -244,12 +242,12 @@ select:focus,input:focus,textarea:focus{
   border-color:var(--sage);
   box-shadow:0 0 0 3px rgba(80,121,95,.14);
 }
-textarea{min-height:70px;resize:vertical;line-height:1.5}
-::placeholder{color:#B4BCB4}
+textarea{min-height:70px;resize:vertical;line-height:1.55}
+::placeholder{color:#B4BCB4;font-weight:500}
 
 select.placeholder,input.placeholder{
-  border-color:rgba(192,139,65,.55);
-  background-color:#FDF9F3;
+  border-color:rgba(160,82,45,.4);
+  background-color:#FDF8F4;
 }
 
 .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -296,9 +294,8 @@ select.placeholder,input.placeholder{
   outline:2px solid var(--terracotta);
   outline-offset:2px;
 }
-.tog .name{flex:1;font-size:14.5px}
+.tog .name{flex:1;font-size:14.5px;font-weight:500}
 .tog .price{
-  font-family:'Raleway',sans-serif;
   font-variant-numeric:tabular-nums;
   font-weight:700;
   font-size:13.5px;
@@ -315,7 +312,7 @@ select.placeholder,input.placeholder{
 }
 
 /* ============================================================
-   ESTIMATE — branded, forest, matches the Closer Guide
+   ESTIMATE
    ============================================================ */
 .est{
   border-radius:12px;
@@ -341,14 +338,12 @@ select.placeholder,input.placeholder{
   background:var(--terracotta);
 }
 .est-head .logo{
-  font-family:'Raleway',sans-serif;
   font-size:24px;
   font-weight:800;
   letter-spacing:-.5px;
   line-height:1.1;
 }
 .est-head .kind{
-  font-family:'Raleway',sans-serif;
   font-size:9px;
   font-weight:700;
   letter-spacing:3px;
@@ -361,14 +356,14 @@ select.placeholder,input.placeholder{
 
 .est-meta{
   font-size:12px;
+  font-weight:500;
   color:var(--mute);
-  line-height:1.85;
+  line-height:1.9;
   padding-bottom:18px;
   margin-bottom:4px;
   border-bottom:1px solid var(--line-s);
 }
 .est-meta .who{
-  font-family:'Raleway',sans-serif;
   font-size:17px;
   font-weight:700;
   color:var(--ink);
@@ -378,7 +373,6 @@ select.placeholder,input.placeholder{
 }
 
 .est-sect{
-  font-family:'Raleway',sans-serif;
   font-size:9.5px;
   font-weight:700;
   letter-spacing:2.4px;
@@ -403,10 +397,11 @@ select.placeholder,input.placeholder{
   gap:14px;
   padding:8px 0;
   font-size:13.5px;
+  font-weight:500;
   border-bottom:1px solid #F4F6F1;
 }
 .li:last-child{border-bottom:none}
-.li .l{flex:1;line-height:1.4}
+.li .l{flex:1;line-height:1.45}
 .li .l em{
   display:block;
   font-style:normal;
@@ -415,7 +410,6 @@ select.placeholder,input.placeholder{
   margin-top:2px;
 }
 .li .v{
-  font-family:'Raleway',sans-serif;
   font-variant-numeric:tabular-nums;
   font-weight:700;
   white-space:nowrap;
@@ -449,7 +443,6 @@ select.placeholder,input.placeholder{
   box-shadow:0 4px 16px rgba(43,83,54,.22);
 }
 .grand .lbl{
-  font-family:'Raleway',sans-serif;
   font-size:9px;
   font-weight:700;
   letter-spacing:2.4px;
@@ -458,11 +451,11 @@ select.placeholder,input.placeholder{
   line-height:1.6;
 }
 .grand .amt{
-  font-family:'Raleway',sans-serif;
   font-size:34px;
   font-weight:800;
   letter-spacing:-1.2px;
   font-variant-numeric:tabular-nums;
+  color:var(--bone);
 }
 
 .dep{
@@ -473,11 +466,11 @@ select.placeholder,input.placeholder{
   padding:16px 18px;
   margin-top:14px;
   font-size:12.5px;
-  line-height:1.65;
+  font-weight:500;
+  line-height:1.7;
   color:var(--mute);
 }
 .dep .hd{
-  font-family:'Raleway',sans-serif;
   font-size:9.5px;
   font-weight:700;
   letter-spacing:2px;
@@ -495,13 +488,18 @@ select.placeholder,input.placeholder{
   font-size:10px;
   letter-spacing:1.4px;
   text-transform:uppercase;
-  font-family:'Raleway',sans-serif;
   font-weight:700;
   color:var(--sage);
   text-align:center;
   line-height:2;
 }
-.est-foot span{color:var(--mute);font-weight:400;letter-spacing:.4px;text-transform:none;font-size:11px}
+.est-foot span{
+  color:var(--mute);
+  font-weight:500;
+  letter-spacing:.4px;
+  text-transform:none;
+  font-size:11px;
+}
 
 /* ---------- ACTIONS ---------- */
 .acts{
@@ -516,7 +514,7 @@ button.act{
   padding:13px 10px;
   border:1px solid var(--forest);
   border-radius:7px;
-  font-family:'Raleway',sans-serif;
+  font-family:var(--font);
   font-size:10.5px;
   font-weight:700;
   letter-spacing:1.4px;
@@ -547,6 +545,17 @@ button.act.quiet{
 button.act.quiet:hover{color:var(--warn);background:transparent;transform:none}
 button.act:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px}
 
+.print-tip{
+  grid-column:1/-1;
+  font-size:10px;
+  font-weight:500;
+  color:var(--mute);
+  text-align:center;
+  line-height:1.5;
+  margin-top:-2px;
+}
+.print-tip b{color:var(--warn);font-weight:700}
+
 /* ---------- TOAST ---------- */
 .toast{
   position:fixed;
@@ -556,7 +565,7 @@ button.act:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px}
   color:var(--bone);
   padding:13px 26px;
   border-radius:30px;
-  font-family:'Raleway',sans-serif;
+  font-family:var(--font);
   font-size:12.5px;
   font-weight:700;
   letter-spacing:.5px;
@@ -576,7 +585,7 @@ button.act:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px}
   .mast .eyebrow{font-size:9px;letter-spacing:2px}
   .tbar{padding:0 18px}
   .tbar.show{height:50px}
-  .tbar .amt{font-size:20px}
+  .tbar .amt{font-size:21px}
   .tbar .who{font-size:10px;letter-spacing:1.6px}
   .banner{padding:9px 18px;font-size:10px;letter-spacing:1px}
   .pane-config{padding:20px 16px 0}
@@ -591,32 +600,80 @@ button.act:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px}
 
 /* ============================================================
    PRINT — the branded PDF
+   ------------------------------------------------------------
+   NOTE: Chrome hides background colours by default.
+   In the print dialogue: More settings → tick Background
+   graphics, or the green header prints white.
    ============================================================ */
 @media print{
   .mast,.tbar,.banner,.pane-config,.acts,.toast{display:none!important}
 
-  body{background:var(--white);font-size:11pt;line-height:1.55}
-  .wrap{display:block;max-width:none}
-  .pane-estimate{position:static;padding:0}
-
-  .est{
-    border:none;
-    box-shadow:none;
-    max-height:none;
-    border-radius:0;
-    display:block;
+  html,body{
+    background:var(--white);
+    font-size:11pt;
+    line-height:1.6;
+    height:auto!important;
+    overflow:visible!important;
   }
 
+  .wrap{
+    display:block!important;
+    max-width:none;
+    grid-template-columns:none!important;
+  }
+
+  .pane-estimate{
+    position:static!important;
+    padding:0!important;
+    top:auto!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  /* release every height and overflow constraint, or the PDF clips */
+  .est{
+    display:block!important;
+    border:none;
+    box-shadow:none;
+    max-height:none!important;
+    height:auto!important;
+    overflow:visible!important;
+    border-radius:0;
+  }
+  .est-scroll{
+    display:block!important;
+    padding:0!important;
+    overflow:visible!important;
+    max-height:none!important;
+    height:auto!important;
+    flex:none!important;
+  }
+
+  /* header sits inside the page margin — no negative-margin bleed */
   .est-head{
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
-    padding:22mm 16mm 14mm;
-    margin:-18mm -18mm 10mm;
+    background:var(--forest)!important;
+    color:var(--bone)!important;
+    padding:14pt 18pt 12pt;
+    margin:0 0 16pt;
+    border-radius:0;
+    page-break-after:avoid;
+    break-after:avoid;
   }
-  .est-head .logo{font-size:30pt}
-  .est-head .kind{font-size:8pt;letter-spacing:3.5pt;margin-top:8pt}
-
-  .est-scroll{padding:0 0 0;overflow:visible}
+  .est-head::after{
+    height:3pt;
+    background:var(--terracotta)!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .est-head .logo{font-size:24pt;color:var(--bone)!important}
+  .est-head .kind{
+    font-size:8pt;
+    letter-spacing:3pt;
+    margin-top:6pt;
+    color:var(--terracotta-l)!important;
+  }
 
   .est-meta{font-size:9.5pt;padding-bottom:12pt}
   .est-meta .who{font-size:15pt}
@@ -624,36 +681,54 @@ button.act:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px}
   .est-sect{
     font-size:8pt;
     letter-spacing:2.4pt;
-    margin:16pt 0 4pt;
+    margin:14pt 0 4pt;
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
+    page-break-after:avoid;
+    break-after:avoid;
   }
   .est-sect::after{background:#D8DCD4}
 
-  .li{font-size:10pt;padding:5pt 0;page-break-inside:avoid}
+  .li{
+    font-size:10pt;
+    padding:4.5pt 0;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
   .li .v.ph{color:var(--ink)}
 
-  .est-sum{page-break-inside:avoid;margin-top:14pt}
+  .est-sum{
+    page-break-inside:avoid;
+    break-inside:avoid;
+    margin-top:12pt;
+  }
 
   .grand{
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
+    background:var(--forest)!important;
+    color:var(--bone)!important;
     box-shadow:none;
     padding:12pt 16pt;
     page-break-inside:avoid;
+    break-inside:avoid;
   }
-  .grand .amt{font-size:26pt}
+  .grand .lbl{color:var(--sage-l)!important}
+  .grand .amt{font-size:26pt;color:var(--bone)!important}
 
   .dep{
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
+    background:#F7FAF6!important;
+    border-left-color:var(--terracotta)!important;
     font-size:9.5pt;
     page-break-inside:avoid;
+    break-inside:avoid;
   }
 
   .est-foot{display:block}
 
-  @page{margin:18mm}
+  @page{margin:16mm}
 }
 </style>
 </head>
@@ -885,6 +960,9 @@ button.act:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px}
       <button class="act primary" id="btnWa">Copy for WhatsApp</button>
       <button class="act" id="btnPrint">Save as PDF</button>
       <button class="act" id="btnGhl">Copy for GHL</button>
+      <div class="print-tip">
+        Printing? In the dialogue, open <b>More settings</b> and tick <b>Background graphics</b>, or the green prints white.
+      </div>
       <button class="act quiet" id="btnReset">Clear and start again</button>
     </div>
 
@@ -902,7 +980,6 @@ button.act:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px}
    ph:true  = PLACEHOLDER. Not confirmed. Renders orange.
    Set ph:false once Liam signs the number off.
    nc:true  = non-commissionable line.
-   emoji    = shown in the WhatsApp message only.
    ============================================================ */
 
 const VAT = 0.20;               /* CONFIRM */
@@ -913,7 +990,6 @@ const PRICING = {
   lines:{
     sauna:{
       label:'Barrel sauna',
-      emoji:'🛖',
       baseLabel:'Sauna length',
       groups:['timber','layout','heater','struct','upgrade'],
       base:[
@@ -927,7 +1003,6 @@ const PRICING = {
     },
     hottub:{
       label:'Hot tub',
-      emoji:'🛁',
       baseLabel:'Tub size',
       groups:['timber','upgrade'],
       base:[
@@ -938,7 +1013,6 @@ const PRICING = {
     },
     icebath:{
       label:'Ice bath',
-      emoji:'🧊',
       baseLabel:'Model',
       groups:['timber','upgrade'],
       base:[
@@ -948,7 +1022,6 @@ const PRICING = {
     },
     trailer:{
       label:'Mobile sauna trailer',
-      emoji:'🚚',
       baseLabel:'Trailer build',
       groups:['timber','layout','heater','upgrade'],
       base:[
@@ -958,7 +1031,6 @@ const PRICING = {
     },
     hut:{
       label:"Shepherd's hut",
-      emoji:'🏡',
       baseLabel:'Hut size',
       groups:['timber','layout','struct','upgrade'],
       base:[
@@ -968,7 +1040,6 @@ const PRICING = {
     },
     glamping:{
       label:'Glamping structure',
-      emoji:'⛺',
       baseLabel:'Structure',
       groups:['timber','struct','upgrade'],
       base:[
@@ -1249,7 +1320,7 @@ function render(){
   const notes=$('cNotes').value.trim();
   if(notes){
     html+='<div class="est-sect">Notes</div>';
-    html+='<div style="font-size:13px;padding:8px 0;white-space:pre-wrap;line-height:1.55">'+esc(notes)+'</div>';
+    html+='<div style="font-size:13px;padding:8px 0;white-space:pre-wrap;line-height:1.6">'+esc(notes)+'</div>';
   }
 
   $('estBody').innerHTML=html;
@@ -1315,7 +1386,7 @@ function waText(){
   const nm=$('cName').value.trim()||'there';
   const L=[];
 
-  L.push(d.line.emoji+'  *BARREL SAUNA UK*');
+  L.push('*BARREL SAUNA UK*  ♨️');
   L.push('_Your estimate_');
   L.push('');
   L.push('Hi '+nm+' — great to speak with you. Here is the build we put together:');
@@ -1337,12 +1408,12 @@ function waText(){
   L.push('');
   L.push('*━━━━━━━━━━━━━━*');
   if(PRICES_ARE_EX_VAT) L.push('VAT (20%)   '+money(d.vat));
-  L.push('💰  *TOTAL INC. VAT — '+money(d.grand)+'*');
+  L.push('💷  *TOTAL INC. VAT — '+money(d.grand)+'*');
   L.push('*━━━━━━━━━━━━━━*');
   L.push('');
 
   /* Deposit wording comes from deposit-copy.js */
-  L.push('🔒  *'+BSUK_DEPOSIT.waHeading.toUpperCase()+'*');
+  L.push('*'+BSUK_DEPOSIT.waHeading.toUpperCase()+'*');
   L.push(BSUK_DEPOSIT.waBody.replace('{balance}','*'+money(d.balance)+'*'));
 
   if(BSUK_DEPOSIT.payLink){
@@ -1360,7 +1431,6 @@ function waText(){
 
   L.push('');
   L.push('_Valid 30 days. Any questions, just reply here._');
-  L.push('🌲  Handmade in Wales');
   return L.join('\n');
 }
 
